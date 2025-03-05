@@ -16,8 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['hard_skill'] = $_POST['hard_skill'];
     $_SESSION['soft_skill'] = $_POST['soft_skill'];
     $_SESSION['prestasi'] = $_POST['prestasi'];
+    $_SESSION['project'] = $_POST['project'];
     $_SESSION['foto'] = $_FILES['foto']['name']; // Simpan nama file foto
     move_uploaded_file($_FILES['foto']['tmp_name'], 'uploads/' . $_FILES['foto']['name']); // Simpan file foto ke folder uploads
+
     header("Location: cv.php");
     exit;
 }
@@ -137,6 +139,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         required
                         class="block w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         placeholder="Contoh: JavaScript, React, PHP, MySQL"
+                    ></textarea>
+                </div>
+            </div>
+
+            <div>
+                <label for="project" class="block text-sm font-medium text-gray-700">Proyek:</label>
+                <div class="mt-1 relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 pt-3 flex items-start pointer-events-none">
+                        <i class="fas fa-project-diagram text-gray-400"></i>
+                    </div>
+                    <textarea
+                        id="project"
+                        name="project"
+                        rows="4"
+                        class="block w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="Contoh: 
+Nama Proyek: Aplikasi Manajemen Stok
+Deskripsi: Aplikasi web untuk mengelola stok barang menggunakan PHP dan MySQL
+Teknologi: PHP, MySQL, Bootstrap
+Peran: Pengembang Utama
+Hasil: Meningkatkan efisiensi pencatatan stok 40%"
                     ></textarea>
                 </div>
             </div>
