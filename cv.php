@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -51,34 +50,52 @@ $user_data = [
             transform: translateY(-10px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+        <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+            .content {
+                transform: scale(0.95);
+                transform-origin: top;
+            }
+        }
+    </style>
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-6xl">
+    <div class="w-full max-w-6xl animate-fadeIn">
         <!-- Kontainer Utama -->
         <div class="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
             <!-- Header Profil -->
-            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 sm:p-8 md:p-16">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <!-- Foto Profil -->
                     <div class="flex items-center space-x-6">
                         <img 
                             src="uploads/<?php echo $user_data['foto']; ?>" 
                             alt="Foto Profil" 
-                            class="w-36 h-36 rounded-full object-cover border-4 border-white shadow-lg"
+                            class="w-24 h-24 md:w-36 md:h-36 rounded-full object-cover border-4 border-white shadow-lg"
                         >
                         <div>
-                            <h1 class="text-4xl font-bold mb-2"><?php echo $user_data['nama']; ?></h1>
-                            <p class="text-xl opacity-80"><?php echo $user_data['email']; ?></p>
+                            <h1 class="text-2xl font-bold mb-2"><?php echo $user_data['nama']; ?></h1>
+                            <p class="text-lg opacity-80"><?php echo $user_data['email']; ?></p>
                             <p class="text-lg opacity-70"><?php echo $user_data['ttl']; ?></p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Konten CV -->
-            <div class="p-8">
-                <div class="grid md:grid-cols-2 gap-8">
+            <div class="p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                     <!-- Pendidikan -->
                     <div class="section-card bg-blue-50 p-6 rounded-2xl">
                         <h2 class="text-2xl font-semibold text-blue-700 mb-4 flex items-center">
@@ -116,8 +133,8 @@ $user_data = [
                         </ul>
                     </div>
 
-                                        <!-- Proyek -->
-                                        <div class="section-card bg-indigo-50 p-6 rounded-2xl">
+                    <!-- Proyek -->
+                    <div class="section-card bg-indigo-50 p-6 rounded-2xl">
                         <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -144,7 +161,7 @@ $user_data = [
                         </h2>
                         <ul class="list-disc list-inside text-gray-700 space-y-2">
                             <?php
-                            $hardSkillList = explode(",", $user_data['hard_skill']);
+                            $hardSkillList = explode("\n", $user_data['hard_skill']);
                             foreach ($hardSkillList as $item) {
                                 echo "<li>" . htmlspecialchars(trim($item)) . "</li>";
                             }
@@ -153,7 +170,7 @@ $user_data = [
                     </div>
 
                     <!-- Soft Skill dan Prestasi -->
-                    <div class="space-y-8">
+                    <div class="space-y-6 md:space-y-8">
                         <!-- Soft Skill -->
                         <div class="section-card bg-yellow-50 p-6 rounded-2xl">
                             <h2 class="text-2xl font-semibold text-yellow-700 mb-4 flex items-center">
@@ -164,7 +181,7 @@ $user_data = [
                             </h2>
                             <ul class="list-disc list-inside text-gray-700 space-y-2">
                                 <?php
-                                $softSkillList = explode(",", $user_data['soft_skill']);
+                                $softSkillList = explode("\n", $user_data['soft_skill']);
                                 foreach ($softSkillList as $item) {
                                     echo "<li>" . htmlspecialchars(trim($item)) . "</li>";
                                 }
@@ -194,27 +211,27 @@ $user_data = [
             </div>
 
             <!-- Footer Aksi -->
-            <div class="bg-gray-100 p-6 flex justify-center space-x-4">
-                <a href="form.php" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center">
+            <div class="bg-gray-100 p-6 flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                <a href="form.php" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                     Edit CV
                 </a>
-                <a href="logout.php" class="px-6 py-3 bg-red-600 text-white rounded-lg hover-bg-red-700 transition flex items-center">
+                <a href="logout.php" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
                     Keluar
                 </a>
-                <button onclick="window.print()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
+                <button onclick="window.print()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-</svg>
-Cetak CV
-</button>
-</div>
-</div>
-</div>
+                    </svg>
+                    Cetak CV
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

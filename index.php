@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Cek jika pengguna sudah login, redirect ke form.php
+
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("Location: form.php");
     exit;
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Validasi password (domain email)
+   
     $domain = explode('@', $email)[1] ?? '';
     if ($password === $domain) {
         $_SESSION['loggedin'] = true;
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- Tambahkan Tailwind CSS dari CDN -->
+   
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center min-h-screen">
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </form>
     </div>
-    <!-- Tambahkan Font Awesome untuk ikon -->
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>

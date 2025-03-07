@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-// Cek jika pengguna belum login, redirect ke index.php
+
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: index.php");
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Simpan data CV ke session
+  
     $_SESSION['nama'] = $_POST['nama'];
     $_SESSION['ttl'] = $_POST['ttl'];
     $_SESSION['pendidikan'] = $_POST['pendidikan'];
@@ -30,16 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form CV</title>
-    <!-- Tambahkan Tailwind CSS dari CDN -->
+   
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Tambahkan Font Awesome untuk ikon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md transform transition-all duration-300 hover:scale-105">
+    <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md transform transition-all duration-300 hover:scale-105 mt-8 mb-8">
         <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Buat CV Anda</h1>
         <form method="POST" action="" enctype="multipart/form-data" class="space-y-6">
-            <!-- Foto Profil -->
+         
             <div>
                 <label for="foto" class="block text-sm font-medium text-gray-700">Foto Profil:</label>
                 <div class="mt-1">
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
 
-            <!-- Nama Lengkap -->
+            
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap:</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
 
-            <!-- Tempat, Tanggal Lahir -->
+         
             <div>
                 <label for="ttl" class="block text-sm font-medium text-gray-700">Tempat, Tanggal Lahir:</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
 
-            <!-- Riwayat Pendidikan -->
+        
             <div>
                 <label for="pendidikan" class="block text-sm font-medium text-gray-700">Riwayat Pendidikan:</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
 
-            <!-- Pengalaman Kerja -->
+          
             <div>
                 <label for="pengalaman" class="block text-sm font-medium text-gray-700">Pengalaman Kerja:</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
 
-            <!-- Hard Skill -->
+        
             <div>
                 <label for="hard_skill" class="block text-sm font-medium text-gray-700">Hard Skill:</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -164,7 +164,7 @@ Hasil: Meningkatkan efisiensi pencatatan stok 40%"
                 </div>
             </div>
 
-            <!-- Soft Skill -->
+          
             <div>
                 <label for="soft_skill" class="block text-sm font-medium text-gray-700">Soft Skill:</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -182,7 +182,7 @@ Hasil: Meningkatkan efisiensi pencatatan stok 40%"
                 </div>
             </div>
 
-            <!-- Prestasi -->
+        
             <div>
                 <label for="prestasi" class="block text-sm font-medium text-gray-700">Prestasi:</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
@@ -200,7 +200,7 @@ Hasil: Meningkatkan efisiensi pencatatan stok 40%"
                 </div>
             </div>
 
-            <!-- Tombol Submit -->
+         
             <div>
                 <button
                     type="submit"
@@ -210,7 +210,7 @@ Hasil: Meningkatkan efisiensi pencatatan stok 40%"
                 </button>
             </div>
         </form>
-        <!-- Tombol Logout -->
+    
         <div class="mt-6 text-center">
             <a href="logout.php" class="text-sm text-indigo-600 hover:text-indigo-500">Logout</a>
         </div>
