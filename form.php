@@ -8,29 +8,58 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Simpan data ke session
-    $_SESSION['nama'] = $_POST['nama'];
-    $_SESSION['ttl'] = $_POST['ttl'];
-    $_SESSION['pendidikan'] = $_POST['pendidikan'];
-    $_SESSION['pengalaman'] = $_POST['pengalaman'];
-    $_SESSION['hard_skill'] = $_POST['hard_skill'];
-    $_SESSION['soft_skill'] = $_POST['soft_skill'];
-    $_SESSION['prestasi'] = $_POST['prestasi'];
-    $_SESSION['project'] = $_POST['project'];
-    $_SESSION['foto'] = $_FILES['foto']['name']; // Simpan nama file foto
-    $_SESSION['quotes'] = $_POST['quotes']; // Simpan quotes
-    $_SESSION['telepon'] = $_POST['telepon']; // Simpan nomor telepon
-    $_SESSION['lokasi'] = $_POST['lokasi']; // Simpan lokasi
-    $_SESSION['email'] = $_POST['email']; // Simpan email
+    // Penanganan upload file
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+        $targetDir = "uploads/";
 
-    // Simpan file foto ke folder uploads
-    move_uploaded_file($_FILES['foto']['tmp_name'], 'uploads/' . $_FILES['foto']['name']);
+        // Buat folder uploads jika tidak ada
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
 
-    // Redirect ke halaman CV
+        $fileType = strtolower(pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION));
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if (!in_array($fileType, $allowedTypes)) {
+            echo "Format file tidak diperbolehkan! Hanya file JPG, JPEG, PNG, dan GIF yang diizinkan.";
+            exit;
+        }
+
+        if ($_FILES['foto']['size'] > 2 * 1024 * 1024) {
+            echo "Ukuran file terlalu besar! Maksimal 2MB.";
+            exit;
+        }
+
+        $fileName = uniqid() . '.' . $fileType;
+        $targetFile = $targetDir . $fileName;
+
+        if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
+            $_SESSION['foto'] = $fileName;
+        } else {
+            echo "Gagal mengunggah file. Pastikan folder uploads ada dan memiliki izin yang tepat.";
+            exit;
+        }
+    }
+
+    // Filter input untuk keamanan
+    $_SESSION['nama'] = htmlspecialchars($_POST['nama']);
+    $_SESSION['ttl'] = htmlspecialchars($_POST['ttl']);
+    $_SESSION['pendidikan'] = htmlspecialchars($_POST['pendidikan']);
+    $_SESSION['pengalaman'] = htmlspecialchars($_POST['pengalaman']);
+    $_SESSION['hard_skill'] = htmlspecialchars($_POST['hard_skill']);
+    $_SESSION['soft_skill'] = htmlspecialchars($_POST['soft_skill']);
+    $_SESSION['prestasi'] = htmlspecialchars($_POST['prestasi']);
+    $_SESSION['project'] = htmlspecialchars($_POST['project']);
+    $_SESSION['quotes'] = htmlspecialchars($_POST['quotes']);
+    $_SESSION['telepon'] = htmlspecialchars($_POST['telepon']);
+    $_SESSION['lokasi'] = htmlspecialchars($_POST['lokasi']);
+    $_SESSION['email'] = htmlspecialchars($_POST['email']);
+
     header("Location: cv.php");
     exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

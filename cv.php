@@ -1,13 +1,10 @@
 <?php
 session_start();
 
-
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true)
-{
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: index.php");
     exit;
 }
-
 
 $user_data = [
     'email' => htmlspecialchars($_SESSION['email'] ?? 'Email tidak tersedia'),
@@ -25,6 +22,8 @@ $user_data = [
     'lokasi' => $_SESSION['lokasi'] ?? 'Belum ada lokasi', // Ambil lokasi dari session
 ];
 ?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
